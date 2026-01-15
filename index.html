@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Informasi Geografis - Karangbesuki</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb; 
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body, html {
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .info-side {
+            flex: 1;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: white;
+            z-index: 2;
+            box-shadow: 10px 0 50px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .abstract {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary-color);
+            text-align: left;
+        }
+
+        .author-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .meta-box h3 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .meta-box p {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+
+        .btn-launch {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: fit-content;
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-launch:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4);
+            background: #1d4ed8;
+        }
+
+        #map-frame {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: none; display: none; z-index: 100;
+        }
+
+        @media (max-width: 900px) {
+            .container { flex-direction: column; }
+            .visual-side { display: none; }
+            .info-side { padding: 40px 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="landing-page">
+        <div class="info-side">
+            <h1>Peta Tematik Persebaran Sekolah TK & SD di Kelurahan Karangbesuki </h1>
+            
+            <div class="abstract">
+                Selamat datang di platform WebGIS Kelurahan Karangbesuki. Situs ini hadir untuk mempermudah Anda menemukan lokasi institusi pendidikan (TK & SD) di wilayah Karangbesuki, Kota Malang. Dengan teknologi pemetaan interaktif, kami menyajikan data spasial secara visual agar lebih mudah dipahami untuk kebutuhan analisis lingkungan maupun referensi bagi masyarakat umum.
+            </div>
+
+            <div class="author-grid">
+                <div class="meta-box">
+                    <h3>NAMA</h3>
+                    <p>Bagus Tegar Bagaskara</p>
+                </div>
+                <div class="meta-box">
+                    <h3>NIM</h3>
+                    <p>23201289</p>
+                </div>
+                <div class="meta-box">
+                    <h3>Program Studi</h3>
+                    <p>Teknik Informatika</p>
+                </div>
+                <div class="meta-box">
+                    <h3>institusi</h3>
+                    <p>Institut Asia Malang</p>
+                </div>
+            </div>
+
+            <button class="btn-launch" onclick="launchMap()">Explore Peta Sekarang</button>
+        </div>
+
+        <div class="visual-side" style="flex: 1.5; background: #1e40af; display: flex; justify-content: center; align-items: center; padding: 25px; overflow: hidden; height: 100vh;">
+            <div style="width: 100%; height: 90%; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 15px; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px);">
+                <img src="Layaout.png" alt="Preview Peta" style="width: 96%; height: 96%; object-fit: contain; border-radius: 5px; box-shadow: 0 15px 35px rgba(0,0,0,0.4);">
+            </div>
+        </div>
+    </div>
+
+    <iframe src="peta.html" id="map-frame"></iframe>
+
+    <script>
+        function launchMap() {
+            const landing = document.getElementById('landing-page');
+            const frame = document.getElementById('map-frame');
+            landing.style.transition = '0.8s ease';
+            landing.style.transform = 'translateY(-100%)';
+            setTimeout(() => {
+                landing.style.display = 'none';
+                frame.style.display = 'block';
+            }, 800);
+        }
+    </script>
+</body>
+</html>
