@@ -155,17 +155,37 @@
     <iframe src="peta.html" id="map-frame"></iframe>
 
     <script>
-        function launchMap() {
-            const landing = document.getElementById('landing-page');
-            const frame = document.getElementById('map-frame');
-            landing.style.transition = '0.8s ease';
-            landing.style.transform = 'translateY(-100%)';
-            setTimeout(() => {
-                landing.style.display = 'none';
-                frame.style.display = 'block';
-            }, 800);
-        }
+       function launchMap() {
+        const landing = document.getElementById('landing-page');
+        const frame = document.getElementById('map-frame');
+        
+        // 1. Kasih tahu browser kalau kita "pindah halaman" biar tombol back aktif
+        history.pushState({view: 'map'}, "Peta", "#map");
+
+        // 2. Jalankan transisi visual
+        landing.style.transition = '0.8s ease';
+        landing.style.transform = 'translateY(-100%)';
+        
+        setTimeout(() => {
+            landing.style.display = 'none';
+            frame.style.display = 'block';
+        }, 800);
+    }
+
+    // 3. Fungsi SAKTI buat nangkep tombol BACK alami browser/HP
+    window.onpopstate = function(event) {
+        const landing = document.getElementById('landing-page');
+        const frame = document.getElementById('map-frame');
+
+        // Kalau user klik back, munculin lagi landing page-nya
+        frame.style.display = 'none';
+        landing.style.display = 'flex';
+        setTimeout(() => {
+            landing.style.transform = 'translateY(0)';
+        }, 10);
+    };
     </script>
 </body>
 
 </html> 
+
